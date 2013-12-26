@@ -10,3 +10,11 @@
             } 
 %>
 <%= link_to "New Topic", new_category_topic_path(@category) %>
+<ul id='topics'>
+  <% @category.topics.each do |topic| %>
+    <li>
+      #<%= topic.id %> -
+      <%= link_to topic.title, [@category, topic] %>
+    </li>
+  <% end %>
+</ul>
