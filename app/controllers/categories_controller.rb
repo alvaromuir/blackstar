@@ -16,7 +16,6 @@ class CategoriesController < ApplicationController
       redirect_to @category
     else
       flash[:notice] = "Category has not been created."
-
       render "new"
     end
   end
@@ -36,7 +35,6 @@ class CategoriesController < ApplicationController
       redirect_to @category
     else
       flash[:notice] = "Category has not been updated."
-
       render "edit"
     end
   end
@@ -44,9 +42,7 @@ class CategoriesController < ApplicationController
   def destroy
     # set_category
     @category.destroy
-
     flash[:notice] = "Category has been deleted."
-
     redirect_to categories_path
   end
   

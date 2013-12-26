@@ -1,15 +1,3 @@
-<% if @category.errors.any? %>
- <div id="error_explanation">
-   <p>
-    <%= pluralize(@category.errors.count, "error") %>
-     prohibited this category from being saved:
-   </p>
-   <ul>
-   <% @category.errors.full_messages.each do |msg| %>
-     <li><%= msg %></li>
-   <% end %>
-   </ul>
- </div>
-<% end %>
 <h2>New Category</h2>
+
 <%= render "form" %>
