@@ -3,11 +3,18 @@
 require 'spec_helper'
 
 feature "Viewing categories" do
+  let!(:user) { FactoryGirl.create(:user) }
+  let!(:category) { FactoryGirl.create(:category) }
+  
+  before do
+    sign_in_as!(user)
+    define_permission!(user, :view, category)
+  end
+
   scenario "Listing all categories" do
-    category = FactoryGirl.create(:category, name: "HTML5 CSS3")
     visit '/'
 
-    click_link 'HTML5 CSS3'
+    click_link category.name
     expect(page.current_url).to eql(category_url(category))
   end 
 end

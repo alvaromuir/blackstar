@@ -6,20 +6,13 @@ feature "Creating Topics" do
   before do
     category = FactoryGirl.create(:category)
     user = FactoryGirl.create(:user)
+    define_permission!(user, "view", category)
     @email = user.email
+    sign_in_as!(user)
 
     visit '/'
     click_link category.name
     click_link 'New Topic'
-    message = "You need to sign in or sign up before continuing."
-    expect(page).to have_content(message)
-
-    fill_in "Username", with: user.name
-    fill_in "Password", with: user.password
-    click_button "Sign in"
-
-    click_link category.name
-    click_link "New Topic"
   end
 
   scenario "Creating a topic" do 

@@ -11,6 +11,18 @@ feature "Viewing Topics" do
                         title: "Responsive Design",
                         description: "All screens, all orientations.")
     topic.update(user: user)
+    define_permission!(user, "view", html_css)
+
+    biz_dev = FactoryGirl.create(:category, name: 'Business Development')
+    user = FactoryGirl.create(:user)
+    topic = FactoryGirl.create(:topic, 
+                        category: biz_dev, 
+                        title: "Angel Investors",
+                        description: "Best way to attact investors?")
+    topic.update(user: user)
+    define_permission!(user, "view", biz_dev)
+
+    sign_in_as!(user)
     visit '/'
   end
 

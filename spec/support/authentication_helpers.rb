@@ -16,7 +16,16 @@ module AuthorizationHelpers
   end
 end
 
+module PermissionHelpers
+  def define_permission!(user, action, thing)
+    Permission.create!(user: user,
+                       action: action,
+                       thing: thing)
+  end 
+end
+
 RSpec.configure do |c|
   c.include AuthenticationHelpers, type: :feature
   c.include AuthorizationHelpers, type: :controller
+  c.include PermissionHelpers
 end

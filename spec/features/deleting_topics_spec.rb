@@ -12,6 +12,7 @@ feature "Deleting Topics" do
   end
   
   before do
+    define_permission!(user, "view", category)
     sign_in_as!(user)
     visit '/'
     click_link category.name
