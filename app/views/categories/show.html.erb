@@ -1,14 +1,16 @@
 <% title("Categories | " + @category.name) %>
 <h2><%= @category.name %></h2>
 
-<%= link_to "Edit Category", edit_category_path %>
-<%= link_to "Delete Category",
-            category_path(@category),
-            method: :delete,
-            data: {
-              confirm: "Are you sure you want to delete this category?" 
-            } 
-%>
+<% admins_only do %>
+  <%= link_to "Edit Category", edit_category_path %>
+  <%= link_to "Delete Category",
+              category_path(@category),
+              method: :delete,
+              data: {
+                confirm: "Are you sure you want to delete this category?" 
+              } 
+  %>
+<% end %>
 <%= link_to "New Topic", new_category_topic_path(@category) %>
 <ul id='topics'>
   <% @category.topics.each do |topic| %>
