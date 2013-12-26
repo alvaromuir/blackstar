@@ -4,4 +4,8 @@ Blackstar::Application.routes.draw do
   resources :categories do
     resources :topics
   end
+
+  resources :users
+  get "/signin", to: "sessions#new"
+  post "/signin", to: "sessions#create"
 end
