@@ -16,5 +16,10 @@ feature "Viewing categories" do
 
     click_link category.name
     expect(page.current_url).to eql(category_url(category))
+
+    FactoryGirl.create(:category, name: "Hidden")
+    visit '/'
+    expect(page).to_not have_content("Hidden")
+    click_link category.name
   end 
 end
