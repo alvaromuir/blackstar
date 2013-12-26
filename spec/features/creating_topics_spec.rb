@@ -6,11 +6,11 @@ feature "Creating Topics" do
   before do
     category = FactoryGirl.create(:category)
     user = FactoryGirl.create(:user)
-    define_permission!(user, "view", category)
     @email = user.email
+    define_permission!(user, "view", category)
+    define_permission!(user, "create topics", category)
     sign_in_as!(user)
 
-    visit '/'
     click_link category.name
     click_link 'New Topic'
   end

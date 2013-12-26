@@ -1,7 +1,8 @@
 class TopicsController < ApplicationController
+  before_action :require_signin!
   before_action :set_category
   before_action :set_topic, only: [:show, :edit, :update, :destroy]
-  before_action :require_signin!
+  before_action :authorize_create!, only: [:new, :create]
 
   def new
     @topic = @category.topics.build
@@ -57,5 +58,12 @@ class TopicsController < ApplicationController
 
     def topic_params
       params.require(:topic).permit(:title, :description)
+    end
+
+    def authorize_create!
+      if !current_user.admin? && cannot?("create topics".to_sym, @category)
+        flash[:alert] = "You cannot create topics on this category."
+        redirect_to @category
+      end
     end
 end

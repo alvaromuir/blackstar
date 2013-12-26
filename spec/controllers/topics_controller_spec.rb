@@ -17,4 +17,25 @@ describe TopicsController do
                                   " not be found.")
     end 
   end
+
+  context "with permission to view the category" do
+    before do
+      sign_in(user)
+      define_permission!(user, "view", category)
+    end
+
+    def cannot_create_topics!
+      response.should redirect_to(category)
+      message = "You cannot create topics on this category."
+      flash[:alert].should eql(message)
+    end
+      it "cannot begin to create a topic" do
+        get :new, category_id: category.id
+        cannot_create_topics!
+    end
+    it "cannot create a topic without permission" do
+      post :create, category_id: category.id
+      cannot_create_topics!
+    end
+  end
 end
