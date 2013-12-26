@@ -4,11 +4,21 @@ require 'spec_helper'
 
 feature "Creating Topics" do  
   before do
-    FactoryGirl.create(:category, name: "HTML5 CSS3")
+    category = FactoryGirl.create(:category)
+    user = FactoryGirl.create(:user)
 
     visit '/'
-    click_link 'HTML5 CSS3'
+    click_link category.name
     click_link 'New Topic'
+    message = "You need to sign in or sign up before continuing."
+    expect(page).to have_content(message)
+
+    fill_in "Username", with: user.name
+    fill_in "Password", with: user.password
+    click_button "Sign in"
+
+    click_link category.name
+    click_link "New Topic"
   end
 
   scenario "Creating a topic" do 
@@ -17,6 +27,10 @@ feature "Creating Topics" do
     click_button "Create Topic"
 
     expect(page).to have_content("Topic has been created.")
+
+    within "#topic #author" do
+      expect(page).to have_content("Created by sample@example.com")
+    end
   end
 
   scenario "Creating a topic withough valid attributes fail" do 

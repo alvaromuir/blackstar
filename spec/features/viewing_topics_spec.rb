@@ -5,19 +5,12 @@ require 'spec_helper'
 feature "Viewing Topics" do
   before do
     html_css = FactoryGirl.create(:category, name: 'HTML5 CSS3')
-
-    FactoryGirl.create(:topic, 
+    user = FactoryGirl.create(:user)
+    topic = FactoryGirl.create(:topic, 
                         category: html_css, 
                         title: "Responsive Design",
                         description: "All screens, all orientations.")
-
-    biz_dev = FactoryGirl.create(:category, name: "Business Development")
-
-    FactoryGirl.create(:topic, 
-                        category: biz_dev, 
-                        title: "Angel Investors",
-                        description: "Where can I find 'em?.")
-
+    topic.update(user: user)
     visit '/'
   end
 

@@ -1,6 +1,7 @@
 class TopicsController < ApplicationController
   before_action :set_category
   before_action :set_topic, only: [:show, :edit, :update, :destroy]
+  before_action :require_signin!, except: [:show, :index]
 
   def new
     @topic = @category.topics.build
@@ -8,6 +9,7 @@ class TopicsController < ApplicationController
 
   def create
     @topic = @category.topics.build(topic_params)
+    @topic.user = current_user
     if @topic.save
       flash[:notice] = "Topic has been created."
       redirect_to [@category, @topic]

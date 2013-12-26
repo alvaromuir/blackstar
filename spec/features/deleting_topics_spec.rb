@@ -4,9 +4,15 @@ require 'spec_helper'
 
 feature "Deleting Topics" do
   let!(:category) { FactoryGirl.create(:category) }
-  let!(:topic) { FactoryGirl.create(:topic, category: category) }
-
+  let!(:user) { FactoryGirl.create(:user) }
+  let!(:topic) do 
+    topic = FactoryGirl.create(:topic, category: category)
+    topic.update(user: user)
+    topic
+  end
+  
   before do
+    sign_in_as!(user)
     visit '/'
     click_link category.name
     click_link topic.title
