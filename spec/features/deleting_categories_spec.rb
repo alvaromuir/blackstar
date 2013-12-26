@@ -3,6 +3,10 @@
 require 'spec_helper'
 
 feature "Deleting categories" do
+  before do
+    sign_in_as!(FactoryGirl.create(:admin_user))
+  end
+  
   scenario "destroying a category" do
     FactoryGirl.create(:category, name: "HTML5 CSS3")
 

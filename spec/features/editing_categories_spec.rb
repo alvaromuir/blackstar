@@ -4,6 +4,7 @@ require 'spec_helper'
 
 feature "Editing Categories" do
   before do
+    sign_in_as!(FactoryGirl.create(:admin_user))
     FactoryGirl.create(:category, name: 'HTML5 CSS3')
 
     visit '/'
