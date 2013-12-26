@@ -21,6 +21,21 @@ class TopicsController < ApplicationController
     # set_topic
   end
 
+  def edit
+    # set_topic
+  end
+
+  def update
+    if @topic.update(topic_params)
+      flash[:notice] = "Topic has been updated."
+      redirect_to [@category, @topic]
+    else
+      flash[:alert] = "Topic has not been updated."
+      render "edit"
+    end
+  end
+
+
   private
     def set_category
       @category = Category.find(params[:category_id])
