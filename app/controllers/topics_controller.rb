@@ -1,7 +1,7 @@
 class TopicsController < ApplicationController
   before_action :set_category
   before_action :set_topic, only: [:show, :edit, :update, :destroy]
-  before_action :require_signin!, except: [:show, :index]
+  before_action :require_signin!
 
   def new
     @topic = @category.topics.build
@@ -45,7 +45,10 @@ class TopicsController < ApplicationController
 
   private
     def set_category
-      @category = Category.find(params[:category_id])
+      @category = Category.for(current_user).find(params[:category_id])
+    rescue ActiveRecord::RecordNotFound
+      flash[:alert] = "The category you were looking for could not be found."
+      redirect_to root_path
     end
 
     def set_topic
