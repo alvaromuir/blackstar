@@ -6,6 +6,7 @@ feature "Creating Topics" do
   before do
     category = FactoryGirl.create(:category)
     user = FactoryGirl.create(:user)
+    @email = user.email
 
     visit '/'
     click_link category.name
@@ -29,7 +30,7 @@ feature "Creating Topics" do
     expect(page).to have_content("Topic has been created.")
 
     within "#topic #author" do
-      expect(page).to have_content("Created by sample@example.com")
+      expect(page).to have_content("Created by #{@email}")
     end
   end
 

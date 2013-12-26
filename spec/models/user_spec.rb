@@ -5,7 +5,7 @@ require 'spec_helper'
 
   describe "passwords" do
     it "needs a password and confirmation to save" do
-      u = User.new(name: "devuser")
+      u = User.new(name: "devuser", email: "devuser@example.com")
 
       u.save
       expect(u).to_not be_valid
@@ -24,24 +24,37 @@ require 'spec_helper'
       u = User.create(
             name: "devuser",
             password: "good_password",
+            email: "devuser@example.com",
             password_confirmation: "bad_password")
       expect(u).to_not be_valid
+    end
+
+    it "requires an email" do
+      u = User.new(name: "someuser",
+                   password: "password9",
+                   password_confirmation: "password9")
+      u.save
+      expect(u).to_not be_valid
+      u.email = "someuser@example.com"
+      u.save
+      expect(u).to be_valid
     end
   end
 
 
   describe "authentication" do
-    let(:user) { User.create( name: "steve",
-                              password: "hunter2",
-                              password_confirmation: "hunter2") 
+    let(:user) { User.create( name: "diddy",
+                              password: "badboy",
+                              email: "devuser@example.com",
+                              password_confirmation: "badboy") 
                 }
 
     it "authenticates with a correct password" do
-      expect(user.authenticate("hunter2")).to be
+      expect(user.authenticate("badboy")).to be
     end
 
     it "does not authenticate with an incorrect password" do
-      expect(user.authenticate("hunter1")).to_not be
+      expect(user.authenticate("deathrow")).to_not be
     end 
   end
 end
