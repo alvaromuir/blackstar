@@ -2,10 +2,12 @@
 
 require 'spec_helper'
 feature 'Creating Categories' do
-  scenario "can create a project" do
+  before do
     visit '/'
-    click_link 'New Category'
 
+    click_link 'New Category'      
+  end
+  scenario "can create a project" do
     fill_in 'Name', with: 'HTML5 CSS3'
     fill_in 'Description', with: 'All things browser markup'
     click_button 'Create Category'
@@ -18,5 +20,12 @@ feature 'Creating Categories' do
 
     title = "Categories | HTML5 CSS3 => Blackstar"
     expect(page).to have_title(title)
+  end
+
+  scenario "can't create a category without a name"
+    click_button 'Create Category'
+
+    expect(page).to have_content("Category has not been created.")
+    expect(page).to have_content("'Name' can't be blank.")
   end
 end
