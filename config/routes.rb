@@ -10,6 +10,7 @@ Blackstar::Application.routes.draw do
   post "/signin", to: "sessions#create"
 
   namespace :admin do
+    root :to => "base#index"
     resources :users
   end
 end
