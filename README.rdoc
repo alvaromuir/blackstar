@@ -1,0 +1,6 @@
+## blackstar
+
+### Backend companion for interest group social presence
+
+
+Alvaro Muir, @alvaromuir
