@@ -35,6 +35,11 @@ class TopicsController < ApplicationController
     end
   end
 
+  def destroy
+    @topic.destroy
+    flash[:notice] = "Topic has been deleted."
+    redirect_to @category
+  end
 
   private
     def set_category

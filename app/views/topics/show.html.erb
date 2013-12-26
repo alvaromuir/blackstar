@@ -3,4 +3,11 @@
   <%= simple_format(@topic.description) %>
 
   <%= link_to "Edit Topic", [:edit, @category, @topic] %>
+  <%= link_to "Delete Topic", 
+              [@category, @topic],
+              method: :delete, 
+              data: {
+                confirm: "Are yu sure you want to delete this topic?"
+              }
+  %>
 </div>
