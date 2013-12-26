@@ -12,13 +12,4 @@
  </div>
 <% end %>
 <h2>New Category</h2>
-<%= form_for(@category) do |f| %>
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-</p>
-  <p>
-    <%= f.label :description %><br />
-    <%= f.text_field :description %>
-  <%= f.submit %>
-<% end %>
+<%= render "form" %>
