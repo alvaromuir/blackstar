@@ -41,7 +41,7 @@ describe TopicsController do
 
     def cannot_update_topics!
       expect(response).to redirect_to(category)
-      expect(flash[:alert]).to eql("You cannot edit topics on this category.")
+      expect(flash[:alert]).to eql("You cannot edit topics in this category.")
     end
 
     it "cannot edit a topic without permission" do
@@ -59,6 +59,16 @@ describe TopicsController do
             topic: {} 
           }
       cannot_update_topics!
+    end
+
+    it "cannot delete a topic without permission" do
+      delete :destroy,
+              { category_id: category.id,
+                id: topic.id
+              }
+      expect(response).to redirect_to(category)
+      message = "You cannot delete topics from this category."
+      expect(flash[:alert]).to eql(message)
     end
   end
 end
