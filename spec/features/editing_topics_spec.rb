@@ -13,6 +13,7 @@ feature "Editing Topics" do
 
   before do
     define_permission!(user, "view", category)
+    define_permission!(user, "edit topics", category)
     sign_in_as!(user)
     visit '/'
     click_link category.name

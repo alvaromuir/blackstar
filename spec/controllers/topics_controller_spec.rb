@@ -33,9 +33,32 @@ describe TopicsController do
         get :new, category_id: category.id
         cannot_create_topics!
     end
+
     it "cannot create a topic without permission" do
       post :create, category_id: category.id
       cannot_create_topics!
+    end
+
+    def cannot_update_topics!
+      expect(response).to redirect_to(category)
+      expect(flash[:alert]).to eql("You cannot edit topics on this category.")
+    end
+
+    it "cannot edit a topic without permission" do
+      get :edit,
+          { category_id: category.id,
+            id: topic.id
+          }
+      cannot_update_topics!
+    end
+
+    it "cannot update a topic without permission" do
+      put :update, 
+          { category_id: category.id,
+            id: topic.id,
+            topic: {} 
+          }
+      cannot_update_topics!
     end
   end
 end

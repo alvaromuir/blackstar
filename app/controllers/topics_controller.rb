@@ -3,6 +3,7 @@ class TopicsController < ApplicationController
   before_action :set_category
   before_action :set_topic, only: [:show, :edit, :update, :destroy]
   before_action :authorize_create!, only: [:new, :create]
+  before_action :authorize_update!, only: [:edit, :update]
 
   def new
     @topic = @category.topics.build
@@ -63,6 +64,13 @@ class TopicsController < ApplicationController
     def authorize_create!
       if !current_user.admin? && cannot?("create topics".to_sym, @category)
         flash[:alert] = "You cannot create topics on this category."
+        redirect_to @category
+      end
+    end
+
+    def authorize_update!
+      if !current_user.admin? && cannot?("edit topics".to_sym, @category)
+        flash[:alert] = "You cannot edit topics on this category."
         redirect_to @category
       end
     end
