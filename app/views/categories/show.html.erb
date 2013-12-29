@@ -11,7 +11,9 @@
               } 
   %>
 <% end %>
-<%= link_to "New Topic", new_category_topic_path(@category) %>
+<% authorized?("create topics", @category) do %>
+  <%= link_to "New Topic", new_category_topic_path(@category) %>
+<% end %>
 <ul id='topics'>
   <% @category.topics.each do |topic| %>
     <li>
