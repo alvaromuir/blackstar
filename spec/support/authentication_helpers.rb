@@ -24,6 +24,10 @@ module PermissionHelpers
   end 
 end
 
+def check_permission_box(permission, object)
+  check "permissions_#{object.id}_#{permission}"
+end
+
 RSpec.configure do |c|
   c.include AuthenticationHelpers, type: :feature
   c.include AuthorizationHelpers, type: :controller

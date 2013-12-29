@@ -8,9 +8,14 @@ Blackstar::Application.routes.draw do
   resources :users
   get "/signin", to: "sessions#new"
   post "/signin", to: "sessions#create"
+  delete "/signout", to: "sessions#destroy", as: "signout"
 
   namespace :admin do
     root :to => "base#index"
-    resources :users
+    resources :users do
+      resources :permissions
+
+      put "permissions", to: "permissions#set", as: "set_permissions"
+    end
   end
 end
