@@ -59,7 +59,7 @@ class TopicsController < ApplicationController
     end
 
     def topic_params
-      params.require(:topic).permit(:title, :description)
+      params.require(:topic).permit(:title, :description, :asset)
     end
 
     def authorize_create!

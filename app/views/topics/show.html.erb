@@ -3,6 +3,18 @@
   <span id='author'>Created by <%= @topic.user.email %></span>
   <%= simple_format(@topic.description) %>
 
+  <% if @topic.asset.present? %>
+    <h3>Attached File</h3>
+    <div class="asset">
+      <p>
+        <%= link_to File.basename(@topic.asset.path),
+                     @topic.asset.url %>
+      </p>
+      <p><small><%= number_to_human_size(@topic.asset.size) %>
+       </small></p>
+    </div>
+  <% end %>
+
   <%= authorized?("edit topics", @category) do %>
     <%= link_to "Edit Topic", [:edit, @category, @topic] %>
   <% end  %>

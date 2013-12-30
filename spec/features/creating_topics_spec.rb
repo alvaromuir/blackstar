@@ -44,4 +44,16 @@ feature "Creating Topics" do
     expect(page).to have_content("Description is too short")
   end
 
+  scenario "Creating a topic with an attachment" do 
+    fill_in "Title", with: "Sceenshot for media queries"
+    fill_in "Description", with: "Should I design for all tablet sizes?"
+    attach_file "File", "spec/fixtures/media_queries.jpg"
+    click_button "Create Topic"
+
+    expect(page).to have_content("Topic has been created.")
+
+    within("#topic .asset") do
+      expect(page).to have_content("media_queries.jpg")
+    end
+  end
 end

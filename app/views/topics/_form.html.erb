@@ -1,6 +1,6 @@
 
 
-<%= form_for [@category, @topic] do |f| %>
+<%= form_for [@category, @topic], html: { multipart: true } do |f| %>
   <% if @topic.errors.any? %>
    <div id="error_explanation">
      <p>
@@ -22,6 +22,10 @@
   <p>
     <%= f.label :description %><br>
     <%= f.text_area :description %>
+  </p>
+  <p>
+    <%= f.label :asset, "File" %><br>
+    <%= f.file_field :asset %>
   </p>
   <%= f.submit %>
 <% end %>
